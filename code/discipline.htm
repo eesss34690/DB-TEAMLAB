@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "big5"/>
+<title>地區選擇</title>
+</head>
+<body>
+	<?php
+    session_start();
+    $city = "";
+    if (isset($_POST["name"]))$name = $_POST["name"];
+    if ($name != "") {
+        $link = mysqli_connect("localhost","root",
+        "1234","test")
+            or die("無法開啟MySQL資料庫漣接!<br/>");
+
+    }
+    mysqli_query($link, 'SET NAMES utf8');
+    $sql  = " select school and department from dis_score where discipline_name = '" . $name . "' ";
+
+    $result = mysqli_query($link, $sql);
+    $total_records = mysqli_num_rows($result);
+    $_SESSION['name_result'] = $result;
+    if ( $total_records > 0 ) {
+        header("Location: http://127.0.0.1:8887/detail.htm"); 
+        exit;
+    } else {  
+        echo "<center><font color='red'>";
+        echo "該縣市沒有大學可供選擇<br/>";
+        echo "</font>";
+     }
+     mysqli_close($link);
+?>
+<form >
+<div align-"center">
+    選擇縣市: <select name="Location">
+    　<option value="大眾傳播">大眾傳播</option>
+    　<option value="工程">工程</option>
+    　<option value="文史哲">文史哲</option>
+    　<option value="外語">外語</option>
+    　<option value="生命科學">生命科學</option>
+    　<option value="地球與環境">地球與環境</option>
+    　<option value="法政">法政</option>
+    　<option value="社會與心理">社會與心理</option>
+    　<option value="建築與設計">建築與設計</option>
+    　<option value="財經">財經</option>
+    　<option value="教育">教育</option>
+    　<option value="資訊">資訊</option>
+    　<option value="遊憩與運動">遊憩與運動</option>
+    　<option value="管理">管理</option>
+    　<option value="數理化">數理化</option>
+    　<option value="醫藥衛生">醫藥衛生</option>
+    　<option value="藝術">藝術</option>
+    　...
+    </select>
+    <input type="submit" name="SB" value="送出"/>
+</div>
+<div align-"center">
+    <span onclick="javascript:location.href='page.htm'", span style="border:1px red solid;font-size:22px;background-color:yellow;">回首頁</span>
+</form>
+</body>
+</html>

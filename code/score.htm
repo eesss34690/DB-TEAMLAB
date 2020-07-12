@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "big5"/>
+<title>地區選擇</title>
+</head>
+<body>
+	<?php
+    session_start();
+    $city = "";
+    if (isset($_POST["name"]))$name = $_POST["name"];
+    if ($name != "") {
+        $link = mysqli_connect("localhost","root",
+        "1234","test")
+            or die("無法開啟MySQL資料庫漣接!<br/>");
+
+    }
+    mysqli_query($link, 'SET NAMES utf8');
+    $sql  = " select school and department from dis_score where discipline_name = '" . $name . "' ";
+
+    $result = mysqli_query($link, $sql);
+    $total_records = mysqli_num_rows($result);
+    $_SESSION['name_result'] = $result;
+    if ( $total_records > 0 ) {
+        header("Location: http://127.0.0.1:8887/detail.htm"); 
+        exit;
+    } else {  
+        echo "<center><font color='red'>";
+        echo "該縣市沒有大學可供選擇<br/>";
+        echo "</font>";
+     }
+     mysqli_close($link);
+?>
+<form >
+<div align-"center">
+    輸入成績: 
+    <label for-"chi">國文:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <label for-"math_a">數甲:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <label for-"math_b">數乙:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <label for-"eng">英文:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <label for-"phy">物理:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <label for-"che">化學:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <label for-"bio">自然:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <label for-"geo">地理:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <label for-"his">歷史:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <label for-"civ">公民:</label>
+    <input type="text" name="name" id-"name" required autofocus/>
+    <input type="submit" name="SB" value="送出"/>
+</div>
+<div align-"center">
+    <span onclick="javascript:location.href='page.htm'", span style="border:1px red solid;font-size:22px;background-color:yellow;">回首頁</span>
+</form>
+</body>
+</html>

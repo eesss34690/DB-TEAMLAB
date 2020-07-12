@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>大學校系導覽</title>
+<script type="text/javascript">
+function getData(pageName){
+	// XMLHttpRequest 物件專門用來和伺服器做連線
+	var req = new XMLHttpRequest () ;
+	req.open ("get", "http://127.0.0.1:8887/"+pageName) ;
+	req.onload = function(){ // load 事件,偵測連線的狀態結束
+		// 連線完成
+		var content = document.getElementById ("content") ;
+		content.innerHTML = this.responseText;
+	}
+	req.send(); // 送出連線
+}
+</script>
+
+</head>
+<body>
+
+
+	<div>
+		
+		<span onclick="javascript:location.href='try_city.php'", span style="border:1px red solid;font-size:22px;background-color:yellow;">各地區大學</span>
+		<span onclick="javascript:location.href='discipline.php'", span style="border:1px red solid;font-size:22px;background-color:yellow;">18學群</span>
+		<span onclick="javascript:location.href='score.php'", span style="border:1px red solid;font-size:22px;background-color:yellow;">落點分析</span>
+		<span onclick="javascript:location.href='update.php'", span style="border:1px red solid;font-size:22px;background-color:yellow;">更新資料</span>
+		<span onclick="javascript:location.href='insert.php'", span style="border:1px red solid;font-size:22px;background-color:yellow;">插入大學</span>
+	</div>
+	<hr/>
+	<div id = "content"></div>
+</body>
+</html>
